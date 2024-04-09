@@ -46,6 +46,7 @@ def test_api_locally_get_root():
     """Test root get a response 200"""
     r = client.get("/")
     assert r.status_code == 200
+    assert r.json()[:4] == 'Welc'
 
 
 def test_api_positive_prediction(data):
