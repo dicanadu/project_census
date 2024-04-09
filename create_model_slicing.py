@@ -39,7 +39,7 @@ def deploy_model_slice(metric,
                                path=model_path,
                                metric=metric)
     else:
-        model = os.listdir(model_path)[0]
+        model = os.listdir(model_path)[-1]
 
     if slicing is not None:
         results = performance_testing(model, X_test, y_test, slicing)
