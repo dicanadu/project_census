@@ -2,3 +2,4 @@ ml_code.ipynb
 __pycache__
 build/
 *.egg-info
+*ipynb
