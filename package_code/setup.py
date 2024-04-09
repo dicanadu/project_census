@@ -4,8 +4,10 @@ with open("requirements.txt") as file:
     packages = file.readlines()
     requirements = [package.strip() for package in packages]
 
+print(find_packages())
+
 setup(
-    name="starter",
+    name="ml_model",
     version="0.0.0",
     description="Starter code.",
     author="Student",

@@ -1,8 +1,9 @@
 # Script to train machine learning model.
 import os
 from sklearn.model_selection import train_test_split
-from starter.ml.data import process_data, load_data
-from starter.ml.model import train_model, compute_model_metrics, inference
+from ml_model.ml.data import process_data, load_data
+from ml_model.ml.model import train_model, compute_model_metrics
+from ml_model.ml.model import inference
 import datetime
 import time
 import joblib
@@ -11,7 +12,7 @@ import joblib
 def train_and_save(X_train,
                    y_train,
                    preprocessor_pipe,
-                   path="./starter/model/model",
+                   path,
                    metric="recall"):
     """"
     Process a logistic regression model optimizing for choosen metric
@@ -34,12 +35,28 @@ def train_and_save(X_train,
     time_file = datetime.datetime \
         .fromtimestamp(time.time()) \
         .strftime("%Y-%m-%d")
-    save_path = f"{path}_{time_file}_{metric}.pkl"
+    save_path = os.path.join(path, f"model_{time_file}_{metric}.pkl")
     joblib.dump(model, save_path)
     return model
 
 
 def performance_testing(model, X_test, y_test, category):
+    """"
+    Computes metrics for a given category holding fixed a categorical feature
+
+    Inputs:
+    _______
+    model: Trained model to test data.
+    X_test: Test data.
+    y_test: Labels.
+    category: Given category to fix data.
+    ------
+
+    Outputs:
+    _______
+    results: Dictionary computing every category with its respective metrics
+    on recall, precision, and fbeta
+    """
     unique_values = X_test[category].unique()
     X_test = X_test.reset_index()
     results = {}
@@ -56,8 +73,11 @@ def performance_testing(model, X_test, y_test, category):
 
 
 if __name__ == "__main__":
-    path = os.path.abspath("starter/data/census.csv")
-    df = load_data(path)
+    root = os.path.dirname(os.path.dirname(__file__))
+    data_path = os.path.join(root, "data", "census.csv")
+    model_path = os.path.join(root, "model")
+
+    df = load_data(data_path)
     preprocessor_pipe, X, y = process_data(df, "salary")
     X_train, X_test, y_train, y_test = train_test_split(X, y,
                                                         test_size=0.20,
@@ -65,11 +85,12 @@ if __name__ == "__main__":
     # model = train_and_save(X_train,
     #                y_train,
     #                preprocessor_pipe,
-    #                path="./starter/model/model",
+    #                path="./ml_model/model/model",
     #                metric="recall")
-    last_model = os.listdir("./starter/model/")[0]
+
+    last_model = os.listdir(model_path)[0]
     print(last_model)
-    model = joblib.load(f"./starter/model/{last_model}")
+    model = joblib.load(os.path.join(model_path, last_model))
     preds = inference(model, X_test)
     scores = compute_model_metrics(y_test, preds)
     scores_fixed = performance_testing(model, X_test, y_test, "race")

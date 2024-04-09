@@ -1,16 +1,16 @@
 import pytest
 import pandas as pd
-from starter.ml.data import load_data, process_data
-from starter.ml.model import train_model, compute_model_metrics, inference
+from ml_model.ml.data import load_data, process_data
+from ml_model.ml.model import train_model, compute_model_metrics, inference
 from sklearn.model_selection import train_test_split
-
 import os
 
 
 @pytest.fixture(scope='session')
 def data():
-    local_path = "./starter/data/census.csv"
-    df = pd.read_csv(local_path)
+    root = os.path.dirname(__file__)
+    file_path = os.path.join(root, "data", "census.csv")
+    df = pd.read_csv(file_path)
     df.columns = [col.strip() for col in df.columns]
     return df
 
@@ -27,8 +27,9 @@ def models(data):
 
 def test_load_data(data):
     """Test whether data was correctly imported"""
-    path = os.path.abspath("starter/data/census.csv")
-    df_load = load_data(path)
+    root = os.path.dirname(__file__)
+    file_path = os.path.join(root, "data", "census.csv")
+    df_load = load_data(file_path)
     assert df_load.shape == data.shape
 
 
