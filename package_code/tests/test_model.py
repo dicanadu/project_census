@@ -8,7 +8,7 @@ import os
 
 @pytest.fixture(scope='session')
 def data():
-    root = os.path.dirname(__file__)
+    root = os.path.dirname(os.path.dirname(__file__))
     file_path = os.path.join(root, "data", "census.csv")
     df = pd.read_csv(file_path)
     df.columns = [col.strip() for col in df.columns]
@@ -27,7 +27,7 @@ def models(data):
 
 def test_load_data(data):
     """Test whether data was correctly imported"""
-    root = os.path.dirname(__file__)
+    root = os.path.dirname(os.path.dirname(__file__))
     file_path = os.path.join(root, "data", "census.csv")
     df_load = load_data(file_path)
     assert df_load.shape == data.shape
