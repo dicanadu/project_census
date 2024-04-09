@@ -88,7 +88,7 @@ if __name__ == "__main__":
     #                path="./ml_model/model/model",
     #                metric="recall")
 
-    last_model = os.listdir(model_path)[0]
+    last_model = os.listdir(model_path)[-1]
     print(last_model)
     model = joblib.load(os.path.join(model_path, last_model))
     preds = inference(model, X_test)
