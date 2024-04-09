@@ -21,6 +21,14 @@ def load_data(path):
     df_full = pd.read_csv(path)
     df_full.columns = [col.strip() for col in df_full.columns]
 
+    categorical_columns = df_full.select_dtypes(
+            include=["object", "string"]).columns
+    for col in categorical_columns:
+        df_full[col] = df_full[col].apply(lambda x: x.strip())
+
+    int64_columns = df_full.select_dtypes("int64").columns
+    df_full[int64_columns] = df_full[int64_columns].astype(float)
+
     return df_full
 
 
@@ -95,4 +103,8 @@ def process_data(
 
 
 if __name__ == "__main__":
+    # path="/home/dicanadu/code/udacity/ML_DevOps/ \
+    # project_census/package_code/data/census.csv"
+    # df = load_data(path)
+    # print(dict(df.iloc[0,:]))
     pass
