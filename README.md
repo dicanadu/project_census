@@ -51,7 +51,7 @@ Later you can use the file apicalls.py to obtain predictions.
 The required fields are those stablished by the US census as follows:
 
 ```json
-example = {
+data = {
     "age": 39,
     "workclass": "State-gov",
     "fnlgt": 77516,
