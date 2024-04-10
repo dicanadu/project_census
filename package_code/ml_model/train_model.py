@@ -96,6 +96,6 @@ if __name__ == "__main__":
     preds = inference(model, X_test)
     scores = compute_model_metrics(y_test, preds)
     print("recall:", scores[0], "\n"
-           "precision:", scores[1], "\n"
-           "fbeta:", scores[2], "\n"
-           "accuracy:", scores[3])
+          "precision:", scores[1], "\n"
+          "fbeta:", scores[2], "\n"
+          "accuracy:", scores[3])
