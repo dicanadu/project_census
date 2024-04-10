@@ -43,7 +43,7 @@ Models will be saved on directory package_code/model/
 Run the command inside the <package_code/app> folder and use the url
 
 ```bash
-uvicorn main:app --reload
+uvicorn uvicorn package_code.app.main:app --reload
 ```
 
 Later you can use the file apicalls.py to obtain predictions.
@@ -72,8 +72,27 @@ The required fields are those stablished by the US census as follows:
     "native-country": "United-States"
 }
 ```
-To deploy on heroku once logged and having created an app, use the following
-command:
+To deploy on heroku on git: create an app, add, commit and push to remote
+
+```bash
+heroku create app-name --buildpack heroku/python
+git init
+git add .
+git commit -m 'Commit message'
+heroku git:remote --app app-name
+git push heroku master
+```
+
+Procfile and requirements.txt should be on the root
+
+Procfile:
+web: uvicorn package_code.app.main:app --host=0.0.0.0 --port=${PORT:-5000}
+
+Alternatively, push only app directory, move Procfile and requirements.txt
+to the app directory
+
+Procfile
+web: uvicorn main app --host=0.0.0.0 --port=${PORT:-5000}
 
 ```bash
 heroku config:set BUILD_DIR=package_code/app
