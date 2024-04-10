@@ -68,7 +68,8 @@ def performance_testing(model, X_test, y_test, category):
         metrics = compute_model_metrics(y_filtered, y_preds)
         results[value] = {"recall": metrics[0],
                           "precision": metrics[1],
-                          "fbeta": metrics[2]}
+                          "fbeta": metrics[2],
+                          "accuracy": metrics[3]}
     return results
 
 
@@ -91,7 +92,10 @@ if __name__ == "__main__":
     last_model = os.listdir(model_path)[-1]
     print(last_model)
     model = joblib.load(os.path.join(model_path, last_model))
+    print(model.best_params_)
     preds = inference(model, X_test)
     scores = compute_model_metrics(y_test, preds)
-    scores_fixed = performance_testing(model, X_test, y_test, "race")
-    print(scores_fixed)
+    print("recall:", scores[0], "\n"
+           "precision:", scores[1], "\n"
+           "fbeta:", scores[2], "\n"
+           "accuracy:", scores[3])

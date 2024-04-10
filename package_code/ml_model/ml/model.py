@@ -1,4 +1,5 @@
-from sklearn.metrics import fbeta_score, precision_score, recall_score
+from sklearn.metrics import fbeta_score, precision_score
+from sklearn.metrics import recall_score, accuracy_score
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import GridSearchCV
@@ -64,7 +65,8 @@ def compute_model_metrics(y, preds):
     fbeta = fbeta_score(y, preds, beta=1, zero_division=1)
     precision = precision_score(y, preds, zero_division=1)
     recall = recall_score(y, preds, zero_division=1)
-    return precision, recall, fbeta
+    accuracy = accuracy_score(y, preds)
+    return precision, recall, fbeta, accuracy
 
 
 def inference(model, X):

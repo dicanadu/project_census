@@ -40,7 +40,7 @@ Models will be saved on directory package_code/model/
 
 ## How call API
 
-Run the command inside the app folder and use the url
+Run the command inside the <package_code/app> folder and use the url
 
 ```bash
 uvicorn main:app --reload
@@ -48,10 +48,14 @@ uvicorn main:app --reload
 
 Later you can use the file apicalls.py to obtain predictions.
 
+```bash
+python apicalls.py
+```
+
 The required fields are those stablished by the US census as follows:
 
 ```json
-data = {
+{
     "age": 39,
     "workclass": "State-gov",
     "fnlgt": 77516,
