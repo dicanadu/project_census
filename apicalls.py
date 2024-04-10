@@ -3,6 +3,7 @@ import requests
 import json
 
 data_path = "./package_code/data/census.csv"
+#alternative_url = "https://app-income-predictor-303410a66978.herokuapp.com/predict"
 
 example_input = {
     "age": 35,

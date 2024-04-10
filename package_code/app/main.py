@@ -56,8 +56,7 @@ async def predict_income(response: Response):
     original_columns = [col.replace("_", "-") for col in dataframe.columns]
     dataframe.columns = original_columns
 
-    model_path = os.path.join(os.path.dirname(os.path.dirname(__file__)),
-                              "ml_model", "sample_models")
+    model_path = os.path.dirname(__file__)
     model_to_use = [file for file in os.listdir(model_path)
                     if file.endswith(".pkl")][-1]
     full_path = os.path.join(model_path, model_to_use)
