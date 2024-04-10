@@ -9,38 +9,20 @@ app = FastAPI()
 
 
 class Response(BaseModel):
-    age: int = Field(gt=0, lt=150)
-    workclass: str
-    fnlgt: int
-    education: str
-    education_num: int = Field(alias="education-num")
-    marital_status: str = Field(alias="marital-status")
-    occupation: str
-    relationship: str
-    race: str
-    sex: str
-    capital_gain: int = Field(alias="capital-gain")
-    capital_loss: int = Field(alias="capital-loss")
-    hours_per_week: int = Field(alias="hours-per-week")
-    native_country: str = Field(alias="native-country")
-
-
-example = {
-    "age": 39,
-    "workclass": "State-gov",
-    "fnlgt": 77516,
-    "education": "Bachelors",
-    "education-num": 13,
-    "marital-status": "Married-civ-spouse",
-    "occupation": "Protective-serv",
-    "relationship": "Husband",
-    "race": "White",
-    "sex": "Female",
-    "capital-gain": 2174,
-    "capital-loss": 0,
-    "hours-per-week": 40,
-    "native-country": "United-States"
-}
+    age: int = Field(gt=0, lt=150, example=20)
+    workclass: str = Field(example="State-gov")
+    fnlgt: int = Field(example=10000)
+    education: str = Field(example="Bachelors")
+    education_num: int = Field(alias="education-num", example=10)
+    marital_status: str = Field(alias="marital-status", example="Divorced")
+    occupation: str = Field(example="Prof-specialty")
+    relationship: str = Field(example="Wife")
+    race: str = Field(example="Black")
+    sex: str = Field(example="Female")
+    capital_gain: int = Field(alias="capital-gain", example=1000)
+    capital_loss: int = Field(alias="capital-loss", example=30)
+    hours_per_week: int = Field(alias="hours-per-week", example=40)
+    native_country: str = Field(alias="native-country", example="Mexico")
 
 
 @app.get("/")
