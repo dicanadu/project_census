@@ -3,7 +3,7 @@ import requests
 import json
 
 data_path = "./package_code/data/census.csv"
-#alternative_url = "https://app-income-predictor-303410a66978.herokuapp.com/predict"
+url = "https://app-income-predictor-303410a66978.herokuapp.com/predict"
 
 example_input = {
     "age": 35,
@@ -38,5 +38,5 @@ def call_api_from_dictionary(input,
     return response.json()
 
 
-print(call_api_from_csv(5))
-print(call_api_from_dictionary(example_input))
+print(call_api_from_csv(5, url))
+print(call_api_from_dictionary(example_input, url))
