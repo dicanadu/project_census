@@ -13,7 +13,8 @@ setup(
     author="Student",
     packages=find_packages(),
     install_requires=requirements,
-    package_data={'ml_model': ['sample_models/*.pkl']}
+    package_data={'ml_model': ['sample_models/*.pkl'],
+                  'app': ["*.pkl"]}
     # include_package_data=True
 )
 
